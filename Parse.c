@@ -5,11 +5,10 @@
 #include <errno.h>
 
 char ** parse_args( char * line ) {
-    char** args = malloc(256);
+    char** args = malloc(6 * sizeof(char *));
     int idx = 0;
-    char *token;
-    while((token = strsep(&line, " ")) != NULL) {
-        args[idx] = token;
+    while(line != NULL) {
+        args[idx] = strsep(&line, " ");
         idx++;
     }
     args[idx] = NULL;
@@ -17,7 +16,8 @@ char ** parse_args( char * line ) {
 }
 
 int main() {
-    char ** args = parse_args("ls -a -l");
-    execvp(args[0], args)
+    char *string = "ls -a -l";
+    char ** args = parse_args(string);
+    execvp(args[0], args);
     return 0;
 }

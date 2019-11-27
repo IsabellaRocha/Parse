@@ -1,11 +1,9 @@
-all: Parse.o
-	-o program Parse.o
-
-Parse.o: Parse.c
-	-c Parse.c
+all: Parse.c
+	gcc -o program Parse.c
 
 run:
 	./program
 
 clean:
-	rm *.o
+	rm *.exe
+	rm *.exe.stackdump

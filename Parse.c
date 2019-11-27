@@ -1,33 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <sys/types.h>
 
 char ** parse_args( char * line ) {
-    char** args;
-    char* curr = line;
+    char** args = malloc(256);
     int idx = 0;
     char *token;
-    while(curr != NULL) {
-        token = strsep(&curr, " ");
+    while((token = strsep(&line, " ")) != NULL) {
         args[idx] = token;
+        idx++;
     }
+    args[idx] = NULL;
     return args;
 }
 
-void printArray(char ** args) {
-    int idx = 0;
-    for (idx; idx < sizeof(args); idx++) {
-        printf("%d ", args[idx]);
-    }
-}
-
 int main() {
-    printArray(parse_args("ls -a -l"));
+    char ** args = parse_args("ls -a -l");
+    execvp(args[0], args)
     return 0;
 }

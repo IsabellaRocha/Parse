@@ -5,7 +5,7 @@
 #include <errno.h>
 
 char ** parse_args( char * line ) {
-    char** args = malloc(6 * sizeof(char *));
+    char** args = malloc(256);
     int idx = 0;
     while(line != NULL) {
         args[idx] = strsep(&line, " ");
@@ -16,8 +16,9 @@ char ** parse_args( char * line ) {
 }
 
 int main() {
-    char *string = "ls -a -l";
-    char ** args = parse_args(string);
+    char string[100] = "ls -a -l";
+    char *str = string;
+    char ** args = parse_args(str);
     execvp(args[0], args);
     return 0;
 }
